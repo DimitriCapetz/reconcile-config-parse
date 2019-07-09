@@ -63,6 +63,7 @@ def configlet_upload(cvp_client, device, configlet_dict):
             final_tap_configlet+=str("!\n" + port + "\n")
             for port_setting in new_tap_dict[port]:
                 final_tap_configlet+=str(port_setting + "\n")
+            final_tap_configlet+=str("   no shutdown\n")
         final_tap_configlet+=str("!")
         resp = cvp_client.api.update_configlet(
             final_tap_configlet, old_tap_configlet["key"], old_tap_configlet["name"], wait_task_ids=False
@@ -78,6 +79,7 @@ def configlet_upload(cvp_client, device, configlet_dict):
             final_tool_configlet+=str("!\n" + port + "\n")
             for port_setting in new_tool_dict[port]:
                 final_tool_configlet+=str(port_setting + "\n")
+            final_tool_configlet+=str("   no shutdown\n")
         final_tool_configlet+=str("!")
         resp = cvp_client.api.update_configlet(
             final_tool_configlet, old_tool_configlet["key"], old_tool_configlet["name"], wait_task_ids=False
@@ -90,9 +92,7 @@ def configlet_upload(cvp_client, device, configlet_dict):
         old_shut_configlet = cvp_client.api.get_configlet_by_name(device + "-shutdownports-automation")
         final_shut_configlet = ""
         for port in new_shut_dict:
-            final_shut_configlet+=str("!\n" + port + "\n")
-            for port_setting in new_shut_dict[port]:
-                final_shut_configlet+=str(port_setting + "\n")
+            final_shut_configlet+=str("!\n" + port + "\n   shutdown\n")
         final_shut_configlet+=str("!")
         resp = cvp_client.api.update_configlet(
             final_shut_configlet, old_shut_configlet["key"], old_shut_configlet["name"], wait_task_ids=False
