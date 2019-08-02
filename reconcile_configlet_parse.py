@@ -1,4 +1,5 @@
 import argparse
+import re
 import sys
 from cvprac.cvp_client import CvpClient
 import urllib3
@@ -35,6 +36,9 @@ def parse_reconcile_config(config):
         else:
             current_int = None
             reconcile_configs_list.append(line)
+    for port, config in port_configs_dict:
+        if re.match(r"interface Ethernet[1-8]/\d+/[2-4]", port)
+            port_configs_dict.pop(port, None)
     return port_configs_dict, reconcile_configs_list
 
 def configlet_upload(cvp_client, device, configlet_dict):
