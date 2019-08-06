@@ -37,7 +37,7 @@ def parse_reconcile_config(config):
             current_int = None
             reconcile_configs_list.append(line)
     for port, config in port_configs_dict.items():
-        if re.match(r"interface Ethernet[1-8]/\d+/[2-4]", port):
+        if re.match(r"interface Ethernet[1-9]0?/\d+/[2-4]", port):
             port_configs_dict.pop(port, None)
     return port_configs_dict, reconcile_configs_list
 
