@@ -40,7 +40,7 @@ def parse_reconcile_config(config):
         if re.match(r"interface Ethernet[1-9]0?/\d+/[2-4]", port):
             port_configs_dict.pop(port, None)
             continue
-        if port[config] == ["   no shutdown", "   unidirectional receive-only", "   switchport mode tap"]:
+        if port_configs_dict[port] == ["   no shutdown", "   unidirectional receive-only", "   switchport mode tap"]:
             port_configs_dict[port] = ["   shutdown"]
     return port_configs_dict, reconcile_configs_list
 
