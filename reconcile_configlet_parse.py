@@ -39,6 +39,9 @@ def parse_reconcile_config(config):
     for port, config in port_configs_dict.items():
         if re.match(r"interface Ethernet[1-9]0?/\d+/[2-4]", port):
             port_configs_dict.pop(port, None)
+            continue
+        if port[config] == ["   no shutdown", "   unidirectional receive-only", "   switchport mode tap"]:
+            port_configs_dict[port] = ["   shutdown"]
     return port_configs_dict, reconcile_configs_list
 
 def configlet_upload(cvp_client, device, configlet_dict):
